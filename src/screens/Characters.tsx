@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { View, FlatList, Image, StyleSheet } from "react-native";
-import { List, useTheme } from "react-native-paper";
+import { List } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+
 import { AllCharacter } from "../utils/types";
+import { CharacterStackScreens } from "../navigators/CharacterStack";
+import { Item } from "react-native-paper/lib/typescript/components/List/List";
 
 const Characters = () => {
   const [result, setResult] = useState<AllCharacter>({
@@ -37,7 +41,7 @@ const Characters = () => {
       },
     ],
   });
-  const theme = useTheme();
+  const navigation = useNavigation<CharacterStackScreens>()
 
   useEffect(() => {
     fetch("https://rickandmortyapi.com/api/character")
@@ -54,6 +58,7 @@ const Characters = () => {
           data={result.results}
           renderItem={({ item }) => (
             <List.Item
+            onPress={() => navigation.navigate('CharacterDesc', {character: item})}
               title={item.name}
               left={(props) => (
                 <Image
@@ -65,6 +70,7 @@ const Characters = () => {
               right={props => <List.Icon icon={'arrow-right'}/>}
             />
           )}
+          keyExtractor={(props) => props.id.toString()}
         />
       </List.Section>
     </View>

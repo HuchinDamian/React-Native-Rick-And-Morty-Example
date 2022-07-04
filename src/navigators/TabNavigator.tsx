@@ -16,7 +16,7 @@ const TabNavigator = () =>{
             tabBarIcon: ({ focused, color, size }) => {
                 let iconName: keyof typeof MaterialCommunityIcons.glyphMap
   
-              if (route.name === 'Characters') {
+              if (route.name === 'CharacterStack') {
                 iconName = 'human'
               } else if (route.name === 'Episodes') {
                 iconName = 'television'
